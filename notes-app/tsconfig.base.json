@@ -15,8 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@notes-app/graphql-mocks": ["packages/graphql-mocks/src/index.ts"],
-      "@notes-app/graphql-schema": ["packages/graphql-schema/src/index.ts"]
+      "@notes-app/graphql-mocks": ["packages/graphql-mocks/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

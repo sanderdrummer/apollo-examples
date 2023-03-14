@@ -1,0 +1,15 @@
+type Note {
+  id: ID!
+  text: String!
+  created: String!
+}
+
+type NoteWithoutId {
+  text: String!
+  created: String!
+}
+
+type Query {
+  notes: [Note]
+  notesWithoutId: [Note]
+}

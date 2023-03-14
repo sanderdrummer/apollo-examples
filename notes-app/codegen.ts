@@ -1,9 +1,9 @@
 import { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
-  schema: './packages/graphql-schema/src/schema.graphql',
+  schema: './packages/notes-graphql/src/schema.graphql',
   generates: {
-    './packages/graphql-schema/src/types.ts': {
+    './packages/notes-graphql/src/resolverTypes.ts': {
       config: {
         strictScalars: true,
         useIndexSignature: true,
@@ -18,23 +18,6 @@ const config: CodegenConfig = {
           },
         },
         'typescript',
-      ],
-    },
-    './packages/notes-graphql/src/resolverTypes.ts': {
-      config: {
-        strictScalars: true,
-        useIndexSignature: true,
-        scalars: {
-          DateTime: 'string',
-        },
-        typesFile: '@notes-app/graphql-schema',
-      },
-      plugins: [
-        {
-          add: {
-            content: '/* eslint-disable */',
-          },
-        },
         'typescript-resolvers',
       ],
     },
@@ -49,12 +32,12 @@ const config: CodegenConfig = {
             content: '/* eslint-disable */',
           },
         },
+        'typescript',
         {
           'typescript-mock-data': {
             scalars: {
               DateTime: "'2023-02-01T15:45:48.925248Z'",
             },
-            typesFile: '@notes-app/graphql-schema',
           },
         },
       ],

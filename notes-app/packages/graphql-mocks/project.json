@@ -4,16 +4,6 @@
   "sourceRoot": "packages/graphql-mocks/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nrwl/esbuild:esbuild",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/graphql-mocks",
-        "main": "packages/graphql-mocks/src/index.ts",
-        "tsConfig": "packages/graphql-mocks/tsconfig.lib.json",
-        "assets": ["packages/graphql-mocks/*.md"]
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

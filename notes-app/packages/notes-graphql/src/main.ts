@@ -1,22 +1,17 @@
 import { ApolloServer } from '@apollo/server'
-import express from 'express'
+import { startStandaloneServer } from '@apollo/server/standalone'
+import { importSchema } from 'graphql-import'
 
-const host = process.env.HOST ?? 'localhost'
-const port = process.env.PORT ? Number(process.env.PORT) : 3000
-
-const app = express()
-
-app.get('/', (req, res) => {
-  res.send({ message: 'Hello API' })
-})
-
-app.listen(port, host, () => {
-  console.log(`[ ready ] http://${host}:${port}`)
-})
+const typeDefs = importSchema('**/schema.graphql')
 
 const resolvers = {
   Query: {
-    notes: () => [],
+    notes: () => {
+      return []
+    },
+    notesWithoutId: () => {
+      return []
+    },
   },
 }
 
@@ -31,6 +26,8 @@ const server = new ApolloServer({
 //  1. creates an Express app
 //  2. installs your ApolloServer instance as middleware
 //  3. prepares your app to handle incoming requests
-const { url } = await startStandaloneServer(server, {
+startStandaloneServer(server, {
   listen: { port: 4000 },
+}).then((info) => {
+  console.info(info)
 })
