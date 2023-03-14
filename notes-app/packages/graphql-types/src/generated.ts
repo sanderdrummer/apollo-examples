@@ -13,6 +13,11 @@ export type Scalars = {
   Float: number;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  saveNote: Note;
+};
+
 export type Note = {
   __typename?: 'Note';
   created: Scalars['String'];
@@ -26,8 +31,16 @@ export type NoteWithoutId = {
   text: Scalars['String'];
 };
 
+export type NotesForPolling = {
+  __typename?: 'NotesForPolling';
+  created: Scalars['String'];
+  id: Scalars['ID'];
+  pollingText: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  NotesForPolling?: Maybe<Array<Maybe<Note>>>;
   notes?: Maybe<Array<Maybe<Note>>>;
   notesWithoutId?: Maybe<Array<Maybe<Note>>>;
 };

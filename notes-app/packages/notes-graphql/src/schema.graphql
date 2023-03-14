@@ -4,6 +4,11 @@ type Note {
   created: String!
 }
 
+type NotesForPolling {
+  id: ID!
+  pollingText: String!
+  created: String!
+}
 type NoteWithoutId {
   text: String!
   created: String!
@@ -12,4 +17,9 @@ type NoteWithoutId {
 type Query {
   notes: [Note]
   notesWithoutId: [Note]
+  NotesForPolling: [Note]
+}
+
+type Mutation {
+  saveNote: Note!
 }

@@ -1,1 +1,1 @@
-export * from './lib/graphql-mocks'
+export * from './generated'

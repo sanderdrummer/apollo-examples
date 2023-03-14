@@ -1,4 +1,56 @@
 /* eslint-disable */
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  saveNote: Note;
+};
+
+export type Note = {
+  __typename?: 'Note';
+  created: Scalars['String'];
+  id: Scalars['ID'];
+  text: Scalars['String'];
+};
+
+export type NoteWithoutId = {
+  __typename?: 'NoteWithoutId';
+  created: Scalars['String'];
+  text: Scalars['String'];
+};
+
+export type NotesForPolling = {
+  __typename?: 'NotesForPolling';
+  created: Scalars['String'];
+  id: Scalars['ID'];
+  pollingText: Scalars['String'];
+};
+
+export type Query = {
+  __typename?: 'Query';
+  NotesForPolling?: Maybe<Array<Maybe<Note>>>;
+  notes?: Maybe<Array<Maybe<Note>>>;
+  notesWithoutId?: Maybe<Array<Maybe<Note>>>;
+};
+
+
+export const aMutation = (overrides?: Partial<Mutation>): Mutation => {
+    return {
+        saveNote: overrides && overrides.hasOwnProperty('saveNote') ? overrides.saveNote! : aNote(),
+    };
+};
 
 export const aNote = (overrides?: Partial<Note>): Note => {
     return {
@@ -15,8 +67,17 @@ export const aNoteWithoutId = (overrides?: Partial<NoteWithoutId>): NoteWithoutI
     };
 };
 
+export const aNotesForPolling = (overrides?: Partial<NotesForPolling>): NotesForPolling => {
+    return {
+        created: overrides && overrides.hasOwnProperty('created') ? overrides.created! : 'hic',
+        id: overrides && overrides.hasOwnProperty('id') ? overrides.id! : '530ce116-3e41-49da-9114-bd0f9443e93e',
+        pollingText: overrides && overrides.hasOwnProperty('pollingText') ? overrides.pollingText! : 'dolorem',
+    };
+};
+
 export const aQuery = (overrides?: Partial<Query>): Query => {
     return {
+        NotesForPolling: overrides && overrides.hasOwnProperty('NotesForPolling') ? overrides.NotesForPolling! : [aNote()],
         notes: overrides && overrides.hasOwnProperty('notes') ? overrides.notes! : [aNote()],
         notesWithoutId: overrides && overrides.hasOwnProperty('notesWithoutId') ? overrides.notesWithoutId! : [aNote()],
     };

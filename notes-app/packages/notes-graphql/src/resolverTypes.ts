@@ -14,6 +14,11 @@ export type Scalars = {
   Float: number;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  saveNote: Note;
+};
+
 export type Note = {
   __typename?: 'Note';
   created: Scalars['String'];
@@ -27,8 +32,16 @@ export type NoteWithoutId = {
   text: Scalars['String'];
 };
 
+export type NotesForPolling = {
+  __typename?: 'NotesForPolling';
+  created: Scalars['String'];
+  id: Scalars['ID'];
+  pollingText: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  NotesForPolling?: Maybe<Array<Maybe<Note>>>;
   notes?: Maybe<Array<Maybe<Note>>>;
   notesWithoutId?: Maybe<Array<Maybe<Note>>>;
 };
@@ -106,8 +119,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Note: ResolverTypeWrapper<Note>;
   NoteWithoutId: ResolverTypeWrapper<NoteWithoutId>;
+  NotesForPolling: ResolverTypeWrapper<NotesForPolling>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
 }>;
@@ -116,10 +131,16 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
+  Mutation: {};
   Note: Note;
   NoteWithoutId: NoteWithoutId;
+  NotesForPolling: NotesForPolling;
   Query: {};
   String: Scalars['String'];
+}>;
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  saveNote?: Resolver<ResolversTypes['Note'], ParentType, ContextType>;
 }>;
 
 export type NoteResolvers<ContextType = any, ParentType extends ResolversParentTypes['Note'] = ResolversParentTypes['Note']> = ResolversObject<{
@@ -135,14 +156,24 @@ export type NoteWithoutIdResolvers<ContextType = any, ParentType extends Resolve
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type NotesForPollingResolvers<ContextType = any, ParentType extends ResolversParentTypes['NotesForPolling'] = ResolversParentTypes['NotesForPolling']> = ResolversObject<{
+  created?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  pollingText?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  NotesForPolling?: Resolver<Maybe<Array<Maybe<ResolversTypes['Note']>>>, ParentType, ContextType>;
   notes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Note']>>>, ParentType, ContextType>;
   notesWithoutId?: Resolver<Maybe<Array<Maybe<ResolversTypes['Note']>>>, ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
+  Mutation?: MutationResolvers<ContextType>;
   Note?: NoteResolvers<ContextType>;
   NoteWithoutId?: NoteWithoutIdResolvers<ContextType>;
+  NotesForPolling?: NotesForPollingResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 }>;
 

@@ -1,16 +1,27 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
 import { importSchema } from 'graphql-import'
+import { Note, Resolvers } from './resolverTypes'
+import { aNote } from '@notes-app/graphql-mocks'
 
 const typeDefs = importSchema('**/schema.graphql')
 
-const resolvers = {
+const notes: Note[] = []
+
+const resolvers: Resolvers = {
   Query: {
     notes: () => {
-      return []
+      return notes
     },
     notesWithoutId: () => {
       return []
+    },
+  },
+  Mutation: {
+    saveNote: () => {
+      const note = aNote()
+      notes.push(note)
+      return note
     },
   },
 }

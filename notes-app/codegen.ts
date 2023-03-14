@@ -43,18 +43,14 @@ const config: CodegenConfig = {
         useIndexSignature: true,
       },
       plugins: [
+        'typescript',
         {
           add: {
             content: '/* eslint-disable */',
           },
         },
         {
-          'typescript-mock-data': {
-            typesFiles: '@notes-app/graphql-types',
-            scalars: {
-              DateTime: "'2023-02-01T15:45:48.925248Z'",
-            },
-          },
+          'typescript-mock-data': {},
         },
       ],
     },
