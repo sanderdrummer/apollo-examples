@@ -1,0 +1,6 @@
+query notesWithoutId {
+  notesWithoutId {
+    text
+    created
+  }
+}

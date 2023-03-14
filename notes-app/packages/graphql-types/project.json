@@ -1,0 +1,16 @@
+{
+  "name": "graphql-types",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/graphql-types/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/graphql-types/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,5 +1,8 @@
 import { CodegenConfig } from '@graphql-codegen/cli'
 
+const scalars = {
+  DateTime: 'string',
+}
 const config: CodegenConfig = {
   schema: './packages/notes-graphql/src/schema.graphql',
   generates: {
@@ -7,9 +10,7 @@ const config: CodegenConfig = {
       config: {
         strictScalars: true,
         useIndexSignature: true,
-        scalars: {
-          DateTime: 'string',
-        },
+        scalars,
       },
       plugins: [
         {
@@ -19,6 +20,21 @@ const config: CodegenConfig = {
         },
         'typescript',
         'typescript-resolvers',
+      ],
+    },
+    './packages/graphql-types/src/generated.ts': {
+      config: {
+        strictScalars: true,
+        useIndexSignature: true,
+        scalars,
+      },
+      plugins: [
+        {
+          add: {
+            content: '/* eslint-disable */',
+          },
+        },
+        'typescript',
       ],
     },
     './packages/graphql-mocks/src/generated.ts': {
@@ -32,14 +48,38 @@ const config: CodegenConfig = {
             content: '/* eslint-disable */',
           },
         },
-        'typescript',
         {
           'typescript-mock-data': {
+            typesFiles: '@notes-app/graphql-types',
             scalars: {
               DateTime: "'2023-02-01T15:45:48.925248Z'",
             },
           },
         },
+      ],
+    },
+    './packages/notes-frontend/src/generated': {
+      documents: ['./packages/notes-frontend/**/*.graphql'],
+      preset: 'near-operation-file',
+      presetConfig: {
+        extension: '.hook.ts',
+        baseTypesPath: '~@notes-app/graphql-types',
+      },
+      config: {
+        scalars,
+        reactApolloVersion: 3,
+        withHooks: true,
+        withComponent: false,
+        withHOC: false,
+      },
+      plugins: [
+        {
+          add: {
+            content: `/* eslint-disable */`,
+          },
+        },
+        'typescript-operations',
+        'typescript-react-apollo',
       ],
     },
   },
