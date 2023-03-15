@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@apollo/client': 3.4.9
+  '@apollo/client': ^3.7.0
   '@apollo/server': ^4.5.0
   '@emotion/babel-plugin': 11.10.6
   '@emotion/react': 11.10.6
@@ -35,6 +35,7 @@ specifiers:
   '@vitest/coverage-c8': ~0.25.8
   '@vitest/ui': ^0.25.8
   axios: ^1.0.0
+  casual: ^1.6.2
   cypress: ^12.2.0
   esbuild: ^0.17.5
   eslint: ~8.15.0
@@ -67,7 +68,7 @@ specifiers:
   vitest: ^0.25.8
 
 dependencies:
-  '@apollo/client': 3.4.9_onqnqwb3ubg5opvemcqf7c2qhy
+  '@apollo/client': 3.7.10_gdcq4dv6opitr3wbfwyjmanyra
   '@apollo/server': 4.5.0_graphql@16.6.0
   '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
   '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
@@ -110,6 +111,7 @@ devDependencies:
   '@vitejs/plugin-react': 3.1.0_vite@4.1.4
   '@vitest/coverage-c8': 0.25.8_eetf2xjpdhuqcs2dx4ndfgw7iq
   '@vitest/ui': 0.25.8
+  casual: 1.6.2
   cypress: 12.7.0
   esbuild: 0.17.11
   eslint: 8.15.0
@@ -152,20 +154,26 @@ packages:
       graphql: 16.6.0
     dev: false
 
-  /@apollo/client/3.4.9_onqnqwb3ubg5opvemcqf7c2qhy:
-    resolution: {integrity: sha512-1AlYjRJ/ktDApEUEP2DqHI38tqSyhSlsF/Q3fFb/aCbLHQfcSZ1dCv7ZlC9UXRyDwQYc0w23gYJ7wZde6W8P4A==}
+  /@apollo/client/3.7.10_gdcq4dv6opitr3wbfwyjmanyra:
+    resolution: {integrity: sha512-/k1MfrqPKYiPNdHcOzdxg9cEx96vhAGxAcSorzfBvV29XtFQcYW2cPNQOTjK/fpSMtqVo8UNmu5vwQAWD1gfCg==}
     peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0
-      react: ^16.8.0 || ^17.0.0
-      subscriptions-transport-ws: ^0.9.0
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql-ws: ^5.5.5
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      subscriptions-transport-ws: ^0.9.0 || ^0.11.0
     peerDependenciesMeta:
+      graphql-ws:
+        optional: true
       react:
+        optional: true
+      react-dom:
         optional: true
       subscriptions-transport-ws:
         optional: true
     dependencies:
       '@graphql-typed-document-node/core': 3.1.2_graphql@16.6.0
-      '@wry/context': 0.6.1
+      '@wry/context': 0.7.0
       '@wry/equality': 0.5.3
       '@wry/trie': 0.3.2
       graphql: 16.6.0
@@ -174,8 +182,10 @@ packages:
       optimism: 0.16.2
       prop-types: 15.8.1
       react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      response-iterator: 0.2.6
       symbol-observable: 4.0.0
-      ts-invariant: 0.9.4
+      ts-invariant: 0.10.3
       tslib: 2.5.0
       zen-observable-ts: 1.2.5
     dev: false
@@ -4967,13 +4977,6 @@ packages:
       fast-url-parser: 1.1.3
       tslib: 2.5.0
     dev: true
-
-  /@wry/context/0.6.1:
-    resolution: {integrity: sha512-LOmVnY1iTU2D8tv4Xf6MVMZZ+juIJ87Kt/plMijjN20NMAXGmH4u8bS1t0uT74cZ5gwpocYueV58YwyI8y+GKw==}
-    engines: {node: '>=8'}
-    dependencies:
-      tslib: 2.5.0
-    dev: false
 
   /@wry/context/0.7.0:
     resolution: {integrity: sha512-LcDAiYWRtwAoSOArfk7cuYvFXytxfVrdX7yxoUmK7pPITLk5jYh2F8knCwS7LjgYL8u1eidPlKKV6Ikqq0ODqQ==}
@@ -11776,6 +11779,11 @@ packages:
       supports-preserve-symlinks-flag: 1.0.0
     dev: true
 
+  /response-iterator/0.2.6:
+    resolution: {integrity: sha512-pVzEEzrsg23Sh053rmDUvLSkGXluZio0qu8VT6ukrYuvtjVfCbDZH9d6PGXb8HZfzdNZt8feXv/jvUzlhRgLnw==}
+    engines: {node: '>=0.8'}
+    dev: false
+
   /restore-cursor/3.1.0:
     resolution: {integrity: sha512-l+sSefzHpj5qimhFSE5a8nufZYAM3sBSVMAPtYkmC+4EH2anSGaEMXSD0izRQbu9nfyQ9y5JrVmp7E8oZrUjvA==}
     engines: {node: '>=8'}
@@ -12689,17 +12697,17 @@ packages:
     hasBin: true
     dev: true
 
+  /ts-invariant/0.10.3:
+    resolution: {integrity: sha512-uivwYcQaxAucv1CzRp2n/QdYPo4ILf9VXgH19zEIjFx2EJufV16P0JtJVpYHy89DItG6Kwj2oIUjrcK5au+4tQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      tslib: 2.5.0
+    dev: false
+
   /ts-invariant/0.4.4:
     resolution: {integrity: sha512-uEtWkFM/sdZvRNNDL3Ehu4WVpwaulhwQszV8mrtcdeE8nN00BV9mAmQ88RkrBhFgl9gMgvjJLAQcZbnPXI9mlA==}
     dependencies:
       tslib: 1.14.1
-    dev: false
-
-  /ts-invariant/0.9.4:
-    resolution: {integrity: sha512-63jtX/ZSwnUNi/WhXjnK8kz4cHHpYS60AnmA6ixz17l7E12a5puCWFlNpkne5Rl0J8TBPVHpGjsj4fxs8ObVLQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      tslib: 2.5.0
     dev: false
 
   /ts-jest/29.0.5_ivkjeorb4e2rsgyad75gkex2q4:
