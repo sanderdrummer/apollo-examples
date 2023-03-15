@@ -5,6 +5,7 @@ const scalars = {
 }
 const config: CodegenConfig = {
   schema: './packages/notes-graphql/src/schema.graphql',
+  ignoreNoDocuments: true,
   generates: {
     './packages/notes-graphql/src/resolverTypes.ts': {
       config: {
@@ -55,6 +56,10 @@ const config: CodegenConfig = {
           },
         },
       ],
+    },
+    './packages/graphql-types/src/gql/': {
+      documents: ['./packages/**/*.tsx'],
+      preset: 'client',
     },
     './packages/notes-frontend/src/generated': {
       documents: ['./packages/notes-frontend/**/*.graphql'],
