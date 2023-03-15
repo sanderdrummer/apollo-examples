@@ -16,6 +16,17 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   saveNote: Note;
+  saveNoteWithoutId: NoteWithoutId;
+};
+
+
+export type MutationSaveNoteArgs = {
+  note: NoteInput;
+};
+
+
+export type MutationSaveNoteWithoutIdArgs = {
+  note?: InputMaybe<NoteWithoutIdInput>;
 };
 
 export type Note = {
@@ -25,8 +36,19 @@ export type Note = {
   text: Scalars['String'];
 };
 
+export type NoteInput = {
+  created: Scalars['String'];
+  id?: InputMaybe<Scalars['ID']>;
+  text: Scalars['String'];
+};
+
 export type NoteWithoutId = {
   __typename?: 'NoteWithoutId';
+  created: Scalars['String'];
+  text: Scalars['String'];
+};
+
+export type NoteWithoutIdInput = {
   created: Scalars['String'];
   text: Scalars['String'];
 };
@@ -40,7 +62,13 @@ export type NotesForPolling = {
 
 export type Query = {
   __typename?: 'Query';
-  NotesForPolling?: Maybe<Array<Maybe<Note>>>;
+  noteById: Note;
+  noteWithoutId?: Maybe<NoteWithoutId>;
   notes?: Maybe<Array<Maybe<Note>>>;
-  notesWithoutId?: Maybe<Array<Maybe<Note>>>;
+  notesForPolling?: Maybe<Array<Maybe<NotesForPolling>>>;
+};
+
+
+export type QueryNoteByIdArgs = {
+  id: Scalars['ID'];
 };

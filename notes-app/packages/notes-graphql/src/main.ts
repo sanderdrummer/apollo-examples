@@ -1,27 +1,47 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
 import { importSchema } from 'graphql-import'
-import { Note, Resolvers } from './resolverTypes'
-import { aNote } from '@notes-app/graphql-mocks'
+import { Note, NoteWithoutId, Resolvers } from './resolverTypes'
+import {
+  aNote,
+  aNotesForPolling,
+  aNoteWithoutId,
+} from '@notes-app/graphql-mocks'
 
 const typeDefs = importSchema('**/schema.graphql')
 
-const notes: Note[] = []
+const notes: Record<string, Note> = {}
+let noteWithoutId = aNoteWithoutId()
 
 const resolvers: Resolvers = {
   Query: {
     notes: () => {
-      return notes
+      return Object.values(notes)
     },
-    notesWithoutId: () => {
-      return []
+    noteById: (_, args) => {
+      const note = notes[args.id]
+      if (!note) {
+        throw Error('not found')
+      }
+      return note
+    },
+    noteWithoutId: () => {
+      return noteWithoutId
+    },
+    notesForPolling: () => {
+      return [aNotesForPolling(), aNotesForPolling(), aNotesForPolling()]
     },
   },
   Mutation: {
-    saveNote: () => {
-      const note = aNote()
-      notes.push(note)
+    saveNote: (_, args) => {
+      const note = aNote(args.note)
+      notes[note.id] = note
       return note
+    },
+    saveNoteWithoutId: (_, args) => {
+      const updatedNote = aNoteWithoutId(args.note)
+      noteWithoutId = updatedNote
+      return updatedNote
     },
   },
 }

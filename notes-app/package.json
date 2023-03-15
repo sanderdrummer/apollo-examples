@@ -64,7 +64,7 @@
     "vitest": "^0.25.8"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.10",
+    "@apollo/client": "3.4.9",
     "@apollo/server": "^4.5.0",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",

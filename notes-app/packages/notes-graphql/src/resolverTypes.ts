@@ -5,6 +5,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -17,6 +18,17 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   saveNote: Note;
+  saveNoteWithoutId: NoteWithoutId;
+};
+
+
+export type MutationSaveNoteArgs = {
+  note: NoteInput;
+};
+
+
+export type MutationSaveNoteWithoutIdArgs = {
+  note?: InputMaybe<NoteWithoutIdInput>;
 };
 
 export type Note = {
@@ -26,8 +38,19 @@ export type Note = {
   text: Scalars['String'];
 };
 
+export type NoteInput = {
+  created: Scalars['String'];
+  id?: InputMaybe<Scalars['ID']>;
+  text: Scalars['String'];
+};
+
 export type NoteWithoutId = {
   __typename?: 'NoteWithoutId';
+  created: Scalars['String'];
+  text: Scalars['String'];
+};
+
+export type NoteWithoutIdInput = {
   created: Scalars['String'];
   text: Scalars['String'];
 };
@@ -41,9 +64,15 @@ export type NotesForPolling = {
 
 export type Query = {
   __typename?: 'Query';
-  NotesForPolling?: Maybe<Array<Maybe<Note>>>;
+  noteById: Note;
+  noteWithoutId?: Maybe<NoteWithoutId>;
   notes?: Maybe<Array<Maybe<Note>>>;
-  notesWithoutId?: Maybe<Array<Maybe<Note>>>;
+  notesForPolling?: Maybe<Array<Maybe<NotesForPolling>>>;
+};
+
+
+export type QueryNoteByIdArgs = {
+  id: Scalars['ID'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -121,7 +150,9 @@ export type ResolversTypes = ResolversObject<{
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
   Note: ResolverTypeWrapper<Note>;
+  NoteInput: NoteInput;
   NoteWithoutId: ResolverTypeWrapper<NoteWithoutId>;
+  NoteWithoutIdInput: NoteWithoutIdInput;
   NotesForPolling: ResolverTypeWrapper<NotesForPolling>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -133,14 +164,17 @@ export type ResolversParentTypes = ResolversObject<{
   ID: Scalars['ID'];
   Mutation: {};
   Note: Note;
+  NoteInput: NoteInput;
   NoteWithoutId: NoteWithoutId;
+  NoteWithoutIdInput: NoteWithoutIdInput;
   NotesForPolling: NotesForPolling;
   Query: {};
   String: Scalars['String'];
 }>;
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  saveNote?: Resolver<ResolversTypes['Note'], ParentType, ContextType>;
+  saveNote?: Resolver<ResolversTypes['Note'], ParentType, ContextType, RequireFields<MutationSaveNoteArgs, 'note'>>;
+  saveNoteWithoutId?: Resolver<ResolversTypes['NoteWithoutId'], ParentType, ContextType, Partial<MutationSaveNoteWithoutIdArgs>>;
 }>;
 
 export type NoteResolvers<ContextType = any, ParentType extends ResolversParentTypes['Note'] = ResolversParentTypes['Note']> = ResolversObject<{
@@ -164,9 +198,10 @@ export type NotesForPollingResolvers<ContextType = any, ParentType extends Resol
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  NotesForPolling?: Resolver<Maybe<Array<Maybe<ResolversTypes['Note']>>>, ParentType, ContextType>;
+  noteById?: Resolver<ResolversTypes['Note'], ParentType, ContextType, RequireFields<QueryNoteByIdArgs, 'id'>>;
+  noteWithoutId?: Resolver<Maybe<ResolversTypes['NoteWithoutId']>, ParentType, ContextType>;
   notes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Note']>>>, ParentType, ContextType>;
-  notesWithoutId?: Resolver<Maybe<Array<Maybe<ResolversTypes['Note']>>>, ParentType, ContextType>;
+  notesForPolling?: Resolver<Maybe<Array<Maybe<ResolversTypes['NotesForPolling']>>>, ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{

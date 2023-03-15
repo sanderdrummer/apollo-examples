@@ -5,3 +5,19 @@ query notes {
     created
   }
 }
+
+query noteById($id: ID!) {
+  noteById(id: $id) {
+    id
+    text
+    created
+  }
+}
+
+mutation saveNote($note: NoteInput!) {
+  saveNote(note: $note) {
+    created
+    id
+    text
+  }
+}

@@ -9,6 +9,7 @@ type NotesForPolling {
   pollingText: String!
   created: String!
 }
+
 type NoteWithoutId {
   text: String!
   created: String!
@@ -16,10 +17,23 @@ type NoteWithoutId {
 
 type Query {
   notes: [Note]
-  notesWithoutId: [Note]
-  NotesForPolling: [Note]
+  noteById(id: ID!): Note!
+  noteWithoutId: NoteWithoutId
+  notesForPolling: [NotesForPolling]
+}
+
+input NoteInput {
+  id: ID
+  text: String!
+  created: String!
+}
+
+input NoteWithoutIdInput {
+  text: String!
+  created: String!
 }
 
 type Mutation {
-  saveNote: Note!
+  saveNote(note: NoteInput!): Note!
+  saveNoteWithoutId(note: NoteWithoutIdInput): NoteWithoutId!
 }

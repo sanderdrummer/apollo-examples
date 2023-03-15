@@ -50,7 +50,9 @@ const config: CodegenConfig = {
           },
         },
         {
-          'typescript-mock-data': {},
+          'typescript-mock-data': {
+            dynamicValues: true,
+          },
         },
       ],
     },

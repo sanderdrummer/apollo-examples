@@ -1,0 +1,13 @@
+query noteWithoutId {
+  noteWithoutId {
+    text
+    created
+  }
+}
+
+mutation saveNoteWithoutId($note: NoteWithoutIdInput!) {
+  saveNoteWithoutId(note: $note) {
+    created
+    text
+  }
+}
