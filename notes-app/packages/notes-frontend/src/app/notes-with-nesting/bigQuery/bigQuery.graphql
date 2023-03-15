@@ -1,0 +1,38 @@
+query NotesWithNesting {
+  notesWithNesting {
+    ...note
+  }
+}
+
+fragment note on NoteWithNesting {
+  id
+  text
+  avatar {
+    ...avatar
+  }
+  User {
+    ...user
+  }
+  NoteDetails {
+    ...noteDetails
+  }
+}
+
+fragment avatar on Avatar {
+  id
+  url
+  name
+}
+
+fragment user on User {
+  id
+  firstName
+  lastName
+}
+
+fragment noteDetails on NoteDetails {
+  id
+  headline
+  subheadline
+  details
+}

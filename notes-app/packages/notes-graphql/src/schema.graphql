@@ -15,7 +15,35 @@ type NoteWithoutId {
   created: String!
 }
 
+type NoteWithNesting {
+  id: ID!
+  text: String!
+  avatar: Avatar!
+  User: User!
+  NoteDetails: [NoteDetails!]!
+}
+
+type Avatar {
+  id: ID!
+  url: String!
+  name: String!
+}
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+}
+
+type NoteDetails {
+  id: ID!
+  headline: String!
+  subheadline: String!
+  details: String!
+}
+
 type Query {
+  notesWithNesting: [NoteWithNesting!]!
   notes: [Note]
   noteById(id: ID!): Note!
   noteWithoutId: NoteWithoutId

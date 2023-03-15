@@ -13,6 +13,13 @@ export type Scalars = {
   Float: number;
 };
 
+export type Avatar = {
+  __typename?: 'Avatar';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  url: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   saveNote: Note;
@@ -36,9 +43,26 @@ export type Note = {
   text: Scalars['String'];
 };
 
+export type NoteDetails = {
+  __typename?: 'NoteDetails';
+  details: Scalars['String'];
+  headline: Scalars['String'];
+  id: Scalars['ID'];
+  subheadline: Scalars['String'];
+};
+
 export type NoteInput = {
   created: Scalars['String'];
   id?: InputMaybe<Scalars['ID']>;
+  text: Scalars['String'];
+};
+
+export type NoteWithNesting = {
+  __typename?: 'NoteWithNesting';
+  NoteDetails: Array<NoteDetails>;
+  User: User;
+  avatar: Avatar;
+  id: Scalars['ID'];
   text: Scalars['String'];
 };
 
@@ -66,9 +90,17 @@ export type Query = {
   noteWithoutId?: Maybe<NoteWithoutId>;
   notes?: Maybe<Array<Maybe<Note>>>;
   notesForPolling?: Maybe<Array<Maybe<NotesForPolling>>>;
+  notesWithNesting: Array<NoteWithNesting>;
 };
 
 
 export type QueryNoteByIdArgs = {
   id: Scalars['ID'];
+};
+
+export type User = {
+  __typename?: 'User';
+  firstName: Scalars['String'];
+  id: Scalars['ID'];
+  lastName: Scalars['String'];
 };

@@ -15,6 +15,13 @@ export type Scalars = {
   Float: number;
 };
 
+export type Avatar = {
+  __typename?: 'Avatar';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  url: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   saveNote: Note;
@@ -38,9 +45,26 @@ export type Note = {
   text: Scalars['String'];
 };
 
+export type NoteDetails = {
+  __typename?: 'NoteDetails';
+  details: Scalars['String'];
+  headline: Scalars['String'];
+  id: Scalars['ID'];
+  subheadline: Scalars['String'];
+};
+
 export type NoteInput = {
   created: Scalars['String'];
   id?: InputMaybe<Scalars['ID']>;
+  text: Scalars['String'];
+};
+
+export type NoteWithNesting = {
+  __typename?: 'NoteWithNesting';
+  NoteDetails: Array<NoteDetails>;
+  User: User;
+  avatar: Avatar;
+  id: Scalars['ID'];
   text: Scalars['String'];
 };
 
@@ -68,11 +92,19 @@ export type Query = {
   noteWithoutId?: Maybe<NoteWithoutId>;
   notes?: Maybe<Array<Maybe<Note>>>;
   notesForPolling?: Maybe<Array<Maybe<NotesForPolling>>>;
+  notesWithNesting: Array<NoteWithNesting>;
 };
 
 
 export type QueryNoteByIdArgs = {
   id: Scalars['ID'];
+};
+
+export type User = {
+  __typename?: 'User';
+  firstName: Scalars['String'];
+  id: Scalars['ID'];
+  lastName: Scalars['String'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -146,30 +178,45 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
+  Avatar: ResolverTypeWrapper<Avatar>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
   Note: ResolverTypeWrapper<Note>;
+  NoteDetails: ResolverTypeWrapper<NoteDetails>;
   NoteInput: NoteInput;
+  NoteWithNesting: ResolverTypeWrapper<NoteWithNesting>;
   NoteWithoutId: ResolverTypeWrapper<NoteWithoutId>;
   NoteWithoutIdInput: NoteWithoutIdInput;
   NotesForPolling: ResolverTypeWrapper<NotesForPolling>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  User: ResolverTypeWrapper<User>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
+  Avatar: Avatar;
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
   Mutation: {};
   Note: Note;
+  NoteDetails: NoteDetails;
   NoteInput: NoteInput;
+  NoteWithNesting: NoteWithNesting;
   NoteWithoutId: NoteWithoutId;
   NoteWithoutIdInput: NoteWithoutIdInput;
   NotesForPolling: NotesForPolling;
   Query: {};
   String: Scalars['String'];
+  User: User;
+}>;
+
+export type AvatarResolvers<ContextType = any, ParentType extends ResolversParentTypes['Avatar'] = ResolversParentTypes['Avatar']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
@@ -179,6 +226,23 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type NoteResolvers<ContextType = any, ParentType extends ResolversParentTypes['Note'] = ResolversParentTypes['Note']> = ResolversObject<{
   created?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type NoteDetailsResolvers<ContextType = any, ParentType extends ResolversParentTypes['NoteDetails'] = ResolversParentTypes['NoteDetails']> = ResolversObject<{
+  details?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  headline?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  subheadline?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type NoteWithNestingResolvers<ContextType = any, ParentType extends ResolversParentTypes['NoteWithNesting'] = ResolversParentTypes['NoteWithNesting']> = ResolversObject<{
+  NoteDetails?: Resolver<Array<ResolversTypes['NoteDetails']>, ParentType, ContextType>;
+  User?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  avatar?: Resolver<ResolversTypes['Avatar'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -202,13 +266,25 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   noteWithoutId?: Resolver<Maybe<ResolversTypes['NoteWithoutId']>, ParentType, ContextType>;
   notes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Note']>>>, ParentType, ContextType>;
   notesForPolling?: Resolver<Maybe<Array<Maybe<ResolversTypes['NotesForPolling']>>>, ParentType, ContextType>;
+  notesWithNesting?: Resolver<Array<ResolversTypes['NoteWithNesting']>, ParentType, ContextType>;
+}>;
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
+  Avatar?: AvatarResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Note?: NoteResolvers<ContextType>;
+  NoteDetails?: NoteDetailsResolvers<ContextType>;
+  NoteWithNesting?: NoteWithNestingResolvers<ContextType>;
   NoteWithoutId?: NoteWithoutIdResolvers<ContextType>;
   NotesForPolling?: NotesForPollingResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 }>;
 

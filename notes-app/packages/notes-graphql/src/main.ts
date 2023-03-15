@@ -1,10 +1,11 @@
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
 import { importSchema } from 'graphql-import'
-import { Note, NoteWithoutId, Resolvers } from './resolverTypes'
+import { Note, Resolvers } from './resolverTypes'
 import {
   aNote,
   aNotesForPolling,
+  aNoteWithNesting,
   aNoteWithoutId,
 } from '@notes-app/graphql-mocks'
 
@@ -30,6 +31,9 @@ const resolvers: Resolvers = {
     },
     notesForPolling: () => {
       return [aNotesForPolling(), aNotesForPolling(), aNotesForPolling()]
+    },
+    notesWithNesting: () => {
+      return Array.from({ length: 100 }, () => aNoteWithNesting())
     },
   },
   Mutation: {

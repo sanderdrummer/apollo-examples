@@ -13,6 +13,13 @@ export type Scalars = {
   Float: number;
 };
 
+export type Avatar = {
+  __typename?: 'Avatar';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  url: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   saveNote: Note;
@@ -36,9 +43,26 @@ export type Note = {
   text: Scalars['String'];
 };
 
+export type NoteDetails = {
+  __typename?: 'NoteDetails';
+  details: Scalars['String'];
+  headline: Scalars['String'];
+  id: Scalars['ID'];
+  subheadline: Scalars['String'];
+};
+
 export type NoteInput = {
   created: Scalars['String'];
   id?: InputMaybe<Scalars['ID']>;
+  text: Scalars['String'];
+};
+
+export type NoteWithNesting = {
+  __typename?: 'NoteWithNesting';
+  NoteDetails: Array<NoteDetails>;
+  User: User;
+  avatar: Avatar;
+  id: Scalars['ID'];
   text: Scalars['String'];
 };
 
@@ -66,6 +90,7 @@ export type Query = {
   noteWithoutId?: Maybe<NoteWithoutId>;
   notes?: Maybe<Array<Maybe<Note>>>;
   notesForPolling?: Maybe<Array<Maybe<NotesForPolling>>>;
+  notesWithNesting: Array<NoteWithNesting>;
 };
 
 
@@ -73,9 +98,24 @@ export type QueryNoteByIdArgs = {
   id: Scalars['ID'];
 };
 
+export type User = {
+  __typename?: 'User';
+  firstName: Scalars['String'];
+  id: Scalars['ID'];
+  lastName: Scalars['String'];
+};
+
 import casual from 'casual';
 
 casual.seed(0);
+
+export const anAvatar = (overrides?: Partial<Avatar>): Avatar => {
+    return {
+        id: overrides && overrides.hasOwnProperty('id') ? overrides.id! : casual.uuid,
+        name: overrides && overrides.hasOwnProperty('name') ? overrides.name! : casual.word,
+        url: overrides && overrides.hasOwnProperty('url') ? overrides.url! : casual.word,
+    };
+};
 
 export const aMutation = (overrides?: Partial<Mutation>): Mutation => {
     return {
@@ -92,9 +132,28 @@ export const aNote = (overrides?: Partial<Note>): Note => {
     };
 };
 
+export const aNoteDetails = (overrides?: Partial<NoteDetails>): NoteDetails => {
+    return {
+        details: overrides && overrides.hasOwnProperty('details') ? overrides.details! : casual.word,
+        headline: overrides && overrides.hasOwnProperty('headline') ? overrides.headline! : casual.word,
+        id: overrides && overrides.hasOwnProperty('id') ? overrides.id! : casual.uuid,
+        subheadline: overrides && overrides.hasOwnProperty('subheadline') ? overrides.subheadline! : casual.word,
+    };
+};
+
 export const aNoteInput = (overrides?: Partial<NoteInput>): NoteInput => {
     return {
         created: overrides && overrides.hasOwnProperty('created') ? overrides.created! : casual.word,
+        id: overrides && overrides.hasOwnProperty('id') ? overrides.id! : casual.uuid,
+        text: overrides && overrides.hasOwnProperty('text') ? overrides.text! : casual.word,
+    };
+};
+
+export const aNoteWithNesting = (overrides?: Partial<NoteWithNesting>): NoteWithNesting => {
+    return {
+        NoteDetails: overrides && overrides.hasOwnProperty('NoteDetails') ? overrides.NoteDetails! : [aNoteDetails()],
+        User: overrides && overrides.hasOwnProperty('User') ? overrides.User! : aUser(),
+        avatar: overrides && overrides.hasOwnProperty('avatar') ? overrides.avatar! : anAvatar(),
         id: overrides && overrides.hasOwnProperty('id') ? overrides.id! : casual.uuid,
         text: overrides && overrides.hasOwnProperty('text') ? overrides.text! : casual.word,
     };
@@ -128,6 +187,15 @@ export const aQuery = (overrides?: Partial<Query>): Query => {
         noteWithoutId: overrides && overrides.hasOwnProperty('noteWithoutId') ? overrides.noteWithoutId! : aNoteWithoutId(),
         notes: overrides && overrides.hasOwnProperty('notes') ? overrides.notes! : [aNote()],
         notesForPolling: overrides && overrides.hasOwnProperty('notesForPolling') ? overrides.notesForPolling! : [aNotesForPolling()],
+        notesWithNesting: overrides && overrides.hasOwnProperty('notesWithNesting') ? overrides.notesWithNesting! : [aNoteWithNesting()],
+    };
+};
+
+export const aUser = (overrides?: Partial<User>): User => {
+    return {
+        firstName: overrides && overrides.hasOwnProperty('firstName') ? overrides.firstName! : casual.word,
+        id: overrides && overrides.hasOwnProperty('id') ? overrides.id! : casual.uuid,
+        lastName: overrides && overrides.hasOwnProperty('lastName') ? overrides.lastName! : casual.word,
     };
 };
 
