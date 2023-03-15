@@ -3,11 +3,12 @@ import {
   useNoteByIdQuery,
   useNotesQuery,
   useSaveNoteMutation,
+  NotesDocument,
+  NotesQuery,
 } from './notes.hook'
 
 const NoteList = ({ onSelect }: { onSelect(id: string): void }) => {
   const { data, refetch } = useNotesQuery({})
-  console.log('rerender', data)
   return (
     <div>
       <ul>
@@ -51,6 +52,36 @@ const NoteForm = ({ selected = '' }) => {
               created: new Date().toISOString(),
             },
           },
+          // update approach
+          // update: (cache, { data }) => {
+          //   const note = data?.saveNote
+          //   if (!note) return
+          //
+          //   const query = cache.readQuery<NotesQuery>({
+          //     query: NotesDocument,
+          //   })
+          //   const notes = query?.notes ?? []
+          //   const noteUpdated = notes.find((maybeNote) => {
+          //     return maybeNote?.id === note.id
+          //   })
+          //   const updatedNotes = noteUpdated
+          //     ? notes.map((maybeNote) => {
+          //       if (maybeNote === noteUpdated) {
+          //         return note
+          //       }
+          //       return maybeNote
+          //     })
+          //     : [...notes, note]
+          //   cache.writeQuery<NotesQuery>({
+          //     query: NotesDocument,
+          //     data: {
+          //       ...query,
+          //       notes: updatedNotes,
+          //     },
+          //   })
+          // },
+          // refetch approach
+          // refetchQueries: ['notes'],
         })
       }}
     >
