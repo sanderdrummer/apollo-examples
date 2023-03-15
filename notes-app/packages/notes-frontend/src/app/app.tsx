@@ -3,6 +3,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { NotesWithId } from './notes/notes-with-id'
 import { NotesWithoutId } from './notesWithoutId/notes-without-id'
 import { NotesWithPolling } from './notes-with-polling/notes-with-polling'
+import { NotesWithFragments } from './notes-with-nesting/useFragments/notes-with-nesting'
 import { NotesWithNesting } from './notes-with-nesting/bigQuery/notes-with-nesting'
 
 const client = new ApolloClient({
@@ -34,6 +35,9 @@ export function App() {
             <li>
               <Link to="/nesting-big-query">Nesting Big Query</Link>
             </li>
+            <li>
+              <Link to="/nesting-fragments">Nesting Fragments</Link>
+            </li>
           </ul>
         </div>
         <Routes>
@@ -41,6 +45,7 @@ export function App() {
           <Route path="/notes-without-id" element={<NotesWithoutId />} />
           <Route path="/notes-with-polling" element={<NotesWithPolling />} />
           <Route path="/nesting-big-query" element={<NotesWithNesting />} />
+          <Route path="/nesting-fragments" element={<NotesWithFragments />} />
         </Routes>
       </div>
     </ApolloProvider>

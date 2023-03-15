@@ -1,0 +1,4 @@
+fragment AnotherAvatar on Avatar {
+  url
+  name
+}

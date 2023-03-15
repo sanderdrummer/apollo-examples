@@ -1,10 +1,10 @@
+import { AvatarByFragment } from './avatar/avatar'
 import {
-  AvatarFragment,
   NoteFragment,
   useNotesWithNestingQuery,
-} from './bigQuery.hook'
+} from '../bigQuery/bigQuery.hook'
 
-export const NotesWithNesting = () => {
+export const NotesWithFragments = () => {
   const { data } = useNotesWithNestingQuery()
 
   return (
@@ -27,16 +27,7 @@ const NoteWithNesting = ({ note }: { note: NoteFragment }) => {
       }}
     >
       {note.text}
-      <Avatar avatar={note.avatar} />
-    </div>
-  )
-}
-
-const Avatar = ({ avatar }: { avatar: AvatarFragment }) => {
-  return (
-    <div>
-      {avatar.url}
-      {avatar.name}
+      <AvatarByFragment id={note.avatar.id} />
     </div>
   )
 }
