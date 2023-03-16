@@ -1,13 +1,12 @@
 import { FragmentType, graphql, useFragment } from '@notes-app/graphql-types'
+import { Avatar } from './avatar/avatar'
 
 export const NoteDetailsFragment = graphql(`
   fragment NoteItem on NoteWithNesting {
     id
     text
     avatar {
-      id
-      url
-      name
+      ...avatar
     }
     User {
       id
@@ -22,6 +21,7 @@ export const NoteDetailsFragment = graphql(`
     }
   }
 `)
+
 type NoteDetailsProps = {
   note: FragmentType<typeof NoteDetailsFragment>
 }
@@ -37,6 +37,7 @@ export const NoteItem = ({ note: noteFragment }: NoteDetailsProps) => {
       }}
     >
       {note.text}
+      <Avatar avatar={note.avatar} />
     </div>
   )
 }
