@@ -23,21 +23,6 @@ const config: CodegenConfig = {
         'typescript-resolvers',
       ],
     },
-    './packages/graphql-types/src/generated.ts': {
-      config: {
-        strictScalars: true,
-        useIndexSignature: true,
-        scalars,
-      },
-      plugins: [
-        {
-          add: {
-            content: '/* eslint-disable */',
-          },
-        },
-        'typescript',
-      ],
-    },
     './packages/graphql-mocks/src/generated.ts': {
       config: {
         strictScalars: true,
@@ -55,34 +40,6 @@ const config: CodegenConfig = {
             dynamicValues: true,
           },
         },
-      ],
-    },
-    './packages/graphql-types/src/gql/': {
-      documents: ['./packages/**/*.tsx'],
-      preset: 'client',
-    },
-    './packages/notes-frontend/src/generated': {
-      documents: ['./packages/notes-frontend/**/*.graphql'],
-      preset: 'near-operation-file',
-      presetConfig: {
-        extension: '.hook.ts',
-        baseTypesPath: '~@notes-app/graphql-types',
-      },
-      config: {
-        scalars,
-        reactApolloVersion: 3,
-        withHooks: true,
-        withComponent: false,
-        withHOC: false,
-      },
-      plugins: [
-        {
-          add: {
-            content: `/* eslint-disable */`,
-          },
-        },
-        'typescript-operations',
-        'typescript-react-apollo',
       ],
     },
   },

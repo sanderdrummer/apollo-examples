@@ -5,9 +5,9 @@
   "projectType": "application",
   "targets": {
     "codegen": {
-      "executor": "@notes-app/plugins:codegen",
+      "executor": "nx:run-commands",
       "options": {
-        "project": "notes-frontend"
+        "command": "pnpm codegen --config projects-codegen.ts --project notes-frontend"
       }
     },
     "build": {

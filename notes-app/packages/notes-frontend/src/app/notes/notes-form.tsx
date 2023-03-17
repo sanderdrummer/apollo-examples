@@ -1,7 +1,8 @@
 import { useMutation, useQuery } from '@apollo/client'
 import { graphql, getFragmentData } from '../../gql'
+import { DerivedTypes } from './derived-note-item'
 
-const notesFragment = graphql(`
+export const notesFragment = graphql(`
   fragment NoteFormFragment on Note {
     created
     id
@@ -67,6 +68,7 @@ export const NoteForm = ({ selected = '' }) => {
       />
       <button type="submit">save</button>
       <div>{JSON.stringify(note)}</div>
+      {note && <DerivedTypes note={note} />}
     </form>
   )
 }

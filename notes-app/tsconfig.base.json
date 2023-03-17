@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "paths": {
       "@notes-app/graphql-mocks": ["packages/graphql-mocks/src/index.ts"],
-      "@notes-app/graphql-types": ["packages/graphql-types/src/index.ts"],
       "@notes-app/plugins": ["packages/plugins/src/index.ts"]
     }
   },
