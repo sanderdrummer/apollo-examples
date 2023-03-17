@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client'
-import { graphql } from '@notes-app/graphql-types'
+import { graphql, useFragment } from '@notes-app/graphql-types'
 
 const notesFragment = graphql(`
   fragment NoteFormFragment on Note {
@@ -12,9 +12,7 @@ const notesFragment = graphql(`
 const saveNotes = graphql(`
   mutation saveNote($note: NoteInput!) {
     saveNote(note: $note) {
-      created
-      id
-      text
+      ...NoteFormFragment
     }
   }
 `)
@@ -22,9 +20,7 @@ const saveNotes = graphql(`
 const noteById = graphql(`
   query noteById($id: ID!) {
     noteById(id: $id) {
-      created
-      id
-      text
+      ...NoteFormFragment
     }
   }
 `)
@@ -40,6 +36,9 @@ export const NoteForm = ({ selected = '' }) => {
   )
   const [saveNote] = useMutation(saveNotes)
 
+  // reveal the data
+  const note = useFragment(notesFragment, data?.noteById)
+
   return loading ? (
     <div>loading...</div>
   ) : (
@@ -48,7 +47,7 @@ export const NoteForm = ({ selected = '' }) => {
         e.preventDefault()
         const form = e.currentTarget
         const text = form.elements.item(0)?.value
-        const id = data?.noteById?.id
+        const id = note?.id
         await saveNote({
           variables: {
             note: {
@@ -62,14 +61,14 @@ export const NoteForm = ({ selected = '' }) => {
       }}
     >
       <input
-        defaultValue={data?.noteById.text ?? ''}
-        key={data?.noteById.id}
+        defaultValue={note?.text ?? ''}
+        key={note?.id}
         type="text"
         name="text"
         required
       />
       <button type="submit">save</button>
-      <div>{JSON.stringify(data?.noteById)}</div>
+      <div>{JSON.stringify(note)}</div>
     </form>
   )
 }
