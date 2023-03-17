@@ -1,6 +1,0 @@
-query NotesForPolling {
-  notesForPolling {
-    pollingText
-    id
-  }
-}

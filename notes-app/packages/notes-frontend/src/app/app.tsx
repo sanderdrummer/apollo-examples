@@ -1,11 +1,6 @@
 import { Route, Routes, Link } from 'react-router-dom'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { NotesWithId } from './notes/notes-with-id'
-import { NotesWithoutId } from './notesWithoutId/notes-without-id'
-import { NotesWithPolling } from './notes-with-polling/notes-with-polling'
-import { NotesWithFragments } from './notes-with-nesting/useFragments/notes-with-nesting'
-import { NotesWithNesting } from './notes-with-nesting/bigQuery/notes-with-nesting'
-import { NotesFragmentMatching } from './notes-with-nesting/fragment-matching/notes-with-nesting'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/',
@@ -46,11 +41,6 @@ export function App() {
         </div>
         <Routes>
           <Route path="/notes" element={<NotesWithId />} />
-          <Route path="/notes-without-id" element={<NotesWithoutId />} />
-          <Route path="/notes-with-polling" element={<NotesWithPolling />} />
-          <Route path="/nesting-big-query" element={<NotesWithNesting />} />
-          <Route path="/nesting-fragments" element={<NotesWithFragments />} />
-          <Route path="/nesting-matching" element={<NotesFragmentMatching />} />
         </Routes>
       </div>
     </ApolloProvider>

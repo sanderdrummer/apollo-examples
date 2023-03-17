@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client'
-import { graphql, useFragment } from '@notes-app/graphql-types'
+import { graphql, getFragmentData } from '../../gql'
 
 const notesFragment = graphql(`
   fragment NoteFormFragment on Note {
@@ -35,10 +35,8 @@ export const NoteForm = ({ selected = '' }) => {
       : { skip: true }
   )
   const [saveNote] = useMutation(saveNotes)
-
   // reveal the data
-  const note = useFragment(notesFragment, data?.noteById)
-
+  const note = getFragmentData(notesFragment, data?.noteById)
   return loading ? (
     <div>loading...</div>
   ) : (

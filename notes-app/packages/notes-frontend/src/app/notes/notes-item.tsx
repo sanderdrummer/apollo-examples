@@ -1,4 +1,4 @@
-import { FragmentType, graphql, useFragment } from '@notes-app/graphql-types'
+import { graphql, getFragmentData, FragmentType } from '../../gql'
 
 export const NoteFragment = graphql(`
   fragment NoteFragment on Note {
@@ -15,7 +15,7 @@ export const NotesItem = ({
   note: FragmentType<typeof NoteFragment>
   onClick: (id: string) => void
 }) => {
-  const note = useFragment(NoteFragment, noteFragment)
+  const note = getFragmentData(NoteFragment, noteFragment)
   return (
     <li onClick={() => onClick(note.id)} key={note.id}>
       {note.id} {note.text} {note.created}

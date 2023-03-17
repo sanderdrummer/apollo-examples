@@ -4,6 +4,12 @@
   "sourceRoot": "packages/notes-frontend/src",
   "projectType": "application",
   "targets": {
+    "codegen": {
+      "executor": "@notes-app/plugins:codegen",
+      "options": {
+        "project": "notes-frontend"
+      }
+    },
     "build": {
       "executor": "@nrwl/vite:build",
       "outputs": ["{options.outputPath}"],

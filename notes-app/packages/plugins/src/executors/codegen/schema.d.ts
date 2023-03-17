@@ -1,1 +1,4 @@
-export interface CodegenExecutorSchema {} // eslint-disable-line
+export interface CodegenExecutorSchema {
+  watch: boolean
+  project: string
+} // eslint-disable-line

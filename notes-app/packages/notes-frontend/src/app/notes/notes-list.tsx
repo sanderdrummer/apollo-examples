@@ -1,11 +1,10 @@
 import { useQuery } from '@apollo/client'
-import { graphql } from '@notes-app/graphql-types'
+import { graphql } from '../../gql'
 import { NotesItem } from './notes-item'
 
 const notesQuery = graphql(`
   query notes {
     notes {
-      id
       ...NoteFragment
     }
   }
