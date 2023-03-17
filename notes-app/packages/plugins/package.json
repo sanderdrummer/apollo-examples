@@ -1,0 +1,6 @@
+{
+  "name": "@notes-app/plugins",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "executors": "executors.json"
+}

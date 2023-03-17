@@ -20,6 +20,7 @@ specifiers:
   '@nrwl/js': 15.8.6
   '@nrwl/linter': 15.8.6
   '@nrwl/node': ^15.8.6
+  '@nrwl/nx-plugin': ^15.8.6
   '@nrwl/react': ^15.8.6
   '@nrwl/vite': 15.8.6
   '@nrwl/workspace': 15.8.6
@@ -99,6 +100,7 @@ devDependencies:
   '@nrwl/js': 15.8.6_dy3bcy5rzsznsjo6teutqltnt4
   '@nrwl/linter': 15.8.6_dy3bcy5rzsznsjo6teutqltnt4
   '@nrwl/node': 15.8.6_yiwaq4xpmcsjnk47wtf3wktq2e
+  '@nrwl/nx-plugin': 15.8.6_ddwqrjogsscqxi4mzg75t36hxq
   '@nrwl/react': 15.8.6_dy3bcy5rzsznsjo6teutqltnt4
   '@nrwl/vite': 15.8.6_fyose2dsbambwngmkgsxkznyfy
   '@nrwl/workspace': 15.8.6_xbutml5teg6536gsdu4z5mzgvm
@@ -3987,6 +3989,30 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@nrwl/nx-plugin/15.8.6_ddwqrjogsscqxi4mzg75t36hxq:
+    resolution: {integrity: sha512-zxrtHOf8+8rPV+Dz3Q5JdWOhxGMJs8h7ODAau0T0CJhnatTS6vUUC3gkcmXQnGwR9TvQEe+kxs4OtRHglCSX1A==}
+    dependencies:
+      '@nrwl/devkit': 15.8.6_nx@15.8.6+typescript@4.9.5
+      '@nrwl/jest': 15.8.6_ddwqrjogsscqxi4mzg75t36hxq
+      '@nrwl/js': 15.8.6_dy3bcy5rzsznsjo6teutqltnt4
+      '@nrwl/linter': 15.8.6_dy3bcy5rzsznsjo6teutqltnt4
+      dotenv: 10.0.0
+      fs-extra: 11.1.0
+      tslib: 2.5.0
+    transitivePeerDependencies:
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@types/node'
+      - debug
+      - eslint
+      - node-notifier
+      - nx
+      - prettier
+      - supports-color
+      - ts-node
+      - typescript
+    dev: true
 
   /@nrwl/nx-win32-arm64-msvc/15.8.6:
     resolution: {integrity: sha512-MvH84nLv1tdM96z92abeQd+tguY/zKC22AFHek9PSR1StUQzwwPu6rR7XDn3mggwnkLm11jTUXlk7wdbE5sldQ==}
@@ -8065,7 +8091,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.5
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
